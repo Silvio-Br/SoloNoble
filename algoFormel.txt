@@ -1,0 +1,91 @@
+
+fonction calculerMouvementsPossibles( tablier tableau chaine [0..nbLigne-1, 0..longueurLigne-1]
+							): liste ( Mouvement ) 
+							//<ligneD: entier, colD: entier, ligneA: entier, colA: entier >
+debut
+	listeMvmtPossible <-- lisVide
+	pour i de 1 à tablier.longueur -1 faire
+		pour j de 1 à tablier[i] faire
+			si j+2 < tablier[i].longueur = 'O' et tablier[i][j] = 'O' et tablier[i][j+1] = 'O' et tablier[i][j+2] = '.' alors
+				adjqlis(listeMvmtPossible, <i, j, i, j+2 >)
+			fsi
+		
+			si j-2 >= 0 et tablier[i][j] = 'O' et tablier[i][j-1] = 'O' et tablier[i][j-2] = '.' alors
+				adjqlis(listeMvmtPossible, <i, j, i, j-2 >)
+			fsi
+		  
+			si i-2 >= 0 et tablier[i][j] = 'O' et tablier[i-1][j] = 'O' et tablier[i-2][j] = '.' alors
+				adjqlis(listeMvmtPossible, <i, j, i-2 , j>)
+			fsi
+			
+			si i+2 < tablier.longueur et tablier[i][j] = 'O' et tablier[i+1][j] = 'O' et tablier[i+2][j] = '.' alors
+				adjqlis(listeMvmtPossible, <i, j, i+2, j>)
+			fsi
+		fpour
+	fpour
+	retourne tabMvmtPossible
+fin
+
+fonction calculerNbPiece( tablier tableau chaine [0..nbLigne-1, 0..longueurLigne-1]): entier
+debut
+	nbPiece <-- 0
+	pour i de 0 à tablier.longueur -1 faire 
+		pour j de 0 à tablier[i].longueur -1 faire	
+			si tablier[i][j] = 'O' alors
+				nbPiece <-- nbPiece + tablier[0].longueur
+			fsi
+		fpour
+	fpour
+	retourne nbPiece
+fin
+
+fonction effectuerMouvement( t tableau boolean [0..nbLigne-1, 0..longueurLigne-1], 
+	mouv: Mouvement, annuler: boolean )
+debut
+	t[mouv.ligneD][mouv.colD] <-- annuler
+	t[mouv.ligneD][mouv.colA] <-- non annuler
+	si mouv.ligneA = mouv.ligneD alors
+		t[mouv.ligneD][(mouv.colD + mouv.colA)/ 2 ] <-- annuler
+	sinon
+		t[(mouv.ligneD + mouv.ligneA)/ 2 ][mouv.colD] <-- annuler
+	fsi
+fin
+
+
+fonction etapeJeu( solution InOut liste ( Mouvement ) [0..longueurSolution-1], 
+	tablier tableau boolean [0..nbLigne-1, 0..longueurLigne-1]): boolean
+	
+	debut
+		nbPiece <-- calculerNbPiece(tablier)
+		si nbPiece = 1 alors
+			//Cas triviale
+			bloque <-- faux
+		sinon
+			bloque <-- vrai			
+			listeMvmtPossible <-- calculerMouvementsPossibles( tablier )
+			i <-- 0
+			tantque i < longueur(listeMvmtPossible) et bloque faire
+				effectuerMouvement( tablier, val(listeMvmtPossible,i), faux )
+				
+				acceptable <-- non (longueur(calculerMouvementsPossibles(tablier)) = 0 et calculerNbPiece(tablier) != 1
+				si acceptable alors
+					//enregistrement mouvement dans solution
+					adjqliste(solution, val(listeMvmtPossible, i))
+					bloque <-- etapeJeu( solution, tablier)
+					si bloque alors
+						//On retourne en arrière en supprimant l'enregistrement dans la solution
+						supqlis(solution)
+					fsi
+				sinon
+					//Annulation du mouvement
+					effectuerMouvement( tablier, val(listeMvmtPossible,i), vrai )
+				fsi
+			fpour
+		fsi
+		retourne bloque
+	fin
+
+
+
+
+
