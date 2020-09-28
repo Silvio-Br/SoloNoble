@@ -29,6 +29,10 @@ public class Grille {
 	 * @throws IOException 
 	 */
 	public Grille(String fichier) throws IOException {
+		convertirFichier(fichier);
+	}
+	
+	public void convertirFichier(String fichier) throws IOException {
 		int caractere;
 		BufferedReader reader = new BufferedReader(new FileReader(fichier));
 		
@@ -46,30 +50,36 @@ public class Grille {
 		reader = new BufferedReader(new FileReader(fichier));
 		tablier = new String[lignes][colonnes];
 		
-		System.out.println("colonnes : " + colonnes);
-		System.out.println("lignes : " + lignes);
-		
 		/** iterateurs **/
 		int i = 0;
 		int j = 0;
+		int nbCarac = 0;
 	
 		while((caractere = reader.read()) != -1) {
+			
+			/** recupere un caractere de la ligne caractere **/
 			String val = "";
 		    val += (char) caractere;
-		    System.out.println("v : " + val);
-		    //System.out.println("i : " + i);
-		    //System.out.println("j : " + j);
-		    tablier[i][j] = val;
+		    nbCarac++;
 		    
-		    if (j == colonnes - 1) {
-		    	if (i < 2) {
-		    		i++;
-		    	}
-		    	j = 0;
+		    if (nbCarac <= colonnes) {
+		    	 System.out.println("t[" + i + "][" + j  + "] = " + val);
+		    	 if (nbCarac == colonnes) {
+				    	i++;
+				    	j = 0;
+				    }
+				    
+				    if (i < colonnes) {
+				    	j++;
+				    }
+				    
 		    } else {
-		    	j++;
+		    	nbCarac = 0;
+		    	j = 0;
 		    }
+		    
 		}
+		reader.close();
 	}
 	
 }
