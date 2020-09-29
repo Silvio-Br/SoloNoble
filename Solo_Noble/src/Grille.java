@@ -32,7 +32,7 @@ public class Grille {
 	}
 	
 	public void convertirFichier(String fichier) throws IOException {
-		int caractere;
+		
 		BufferedReader reader = new BufferedReader(new FileReader(fichier));
 		
 		/** get nombre de lignes **/
@@ -52,22 +52,18 @@ public class Grille {
 		/** iterateurs **/
 		int i = 0;
 		int j = 0;
+		int caractere;
 	
-		while((caractere = reader.read()) != -1) {
-			
-			/** recupere un caractere de la ligne caractere **/
-			String val = "";
-		    val += (char) caractere;
-		    
-		    if (!val.equals("\n")) {
-		    	tablier[i][j] = val;
-		    	System.out.println("t[" + i + "][" + j  + "] = " + val);
-		    	j++;
-		    } else {
-		    	j = 0;
-		    	i++;
-		    }
-		    
+		for (int k = 0; k < lignes; k++) {
+			for (int l = 0; l < colonnes; l++) {
+				caractere = reader.read();
+				String val = "";
+				val += (char) caractere;
+				
+				tablier[k][l] = val;
+				System.out.println("t[" + k + "][" + l  + "] = " + val);
+			}
+			caractere = reader.read();
 		}
 		reader.close();
 	}
