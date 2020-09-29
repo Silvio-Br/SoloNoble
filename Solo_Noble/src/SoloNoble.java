@@ -14,7 +14,7 @@ public class SoloNoble {
 	}
 
 	public SoloNoble() throws IOException {
-		g = new Grille("./tablier.txt");
+		g = new Grille("./Solo_Noble/tablier.txt");
 		solution = new ArrayList<Deplacement>();
 	}
 	
@@ -46,13 +46,17 @@ public class SoloNoble {
 					//annulation du deplacement si resultat non acceptable
 					g.annulerDeplacement(listeDepPossible.get(i));
 				}
+				i++;
 			}
 		}
 		return bloque;
 	}
 	
 	public void afficherSolution() {
-		//TODO
+		for(Deplacement i:solution) {
+			System.out.println(i);
+		}
+		System.out.println("*** LONGUEUR SOLUTION : "+solution.size()+" ***");
 	}
 
 }

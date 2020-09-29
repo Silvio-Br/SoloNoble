@@ -56,6 +56,8 @@ public class Grille {
 		int i = 0;
 		int j = 0;
 		int nbCarac = 0;
+		
+		System.out.println(colonnes);
 	
 		while((caractere = reader.read()) != -1) {
 			
@@ -64,8 +66,11 @@ public class Grille {
 		    val += (char) caractere;
 		    nbCarac++;
 		    
+		    System.out.println(nbCarac);
+		    
 		    if (nbCarac <= colonnes) {
 		    	 System.out.println("t[" + i + "][" + j  + "] = " + val);
+		    	 tablier[i][j] = val;
 		    	 if (nbCarac == colonnes) {
 				    	i++;
 				    	j = 0;
@@ -155,7 +160,7 @@ public class Grille {
 	public int calculerNbPiece() {
 		int nb = 0;
 		for(int i=0; i<tablier.length; i++) {
-			for(int j=0; i<tablier[i].length; j++) {
+			for(int j=0; j<tablier[i].length; j++) {
 				if(tablier[i][j].equals("o")) {
 					nb++;
 				}

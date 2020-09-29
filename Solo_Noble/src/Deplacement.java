@@ -88,7 +88,9 @@ public class Deplacement {
 		this.colD = colD;
 	}
 	
-	
+	public String toString() {
+		return "Ligne Depart: "+ligneD+" | colonne depart:"+colD+" | ligne arrivé: "+ligneA+" | colonne arrive: "+colA;
+	}
 	
 	
 	
