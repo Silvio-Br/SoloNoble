@@ -8,14 +8,22 @@ public class SoloNoble {
 	private List<Deplacement> solution;
 	
 	public static void main(String[] args) throws IOException {
-		SoloNoble solo = new SoloNoble();
+		SoloNoble solo;
+		if (args.length > 0) {
+			solo = new SoloNoble(args[0]);
+		} else {
+			solo = new SoloNoble(null);
+		}
 		solo.resoudreSoloNoble(solo.g.calculerNbPiece());
 		solo.afficherSolution();
 	}
 
-	public SoloNoble() throws IOException {
-		g = new Grille();
-		//g = new Grille(args[0]);
+	public SoloNoble(String f) throws IOException {
+		if (f != null) {
+			g = new Grille(f);
+		} else {
+			g = new Grille();
+		}
 		solution = new ArrayList<Deplacement>();
 	}
 	
