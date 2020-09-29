@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Grille {
 
@@ -81,5 +83,97 @@ public class Grille {
 		}
 		reader.close();
 	}
+	
+	
+	public ArrayList<Deplacement> calculerMouvementPossibles(){
+		ArrayList<Deplacement> listeMouv = new ArrayList<Deplacement>();
+		
+		for(int i=0; i< tablier.length; i++) {
+			for(int j=0; j< tablier[i].length; j++) {
+				//deplacement possible vers la droite
+				if(j+2 < tablier[i].length 
+						&& tablier[i][j].equals("o")
+						&& tablier[i][j+1].equals("o")
+						&& tablier[i][j+2].equals(".")) {
+					listeMouv.add(new Deplacement(i, j, i, j+2));
+				}
+				
+				//deplacement possible vers la gauche
+				if(j-2 >= 0
+						&& tablier[i][j].equals("o")
+						&& tablier[i][j-1].equals("o")
+						&& tablier[i][j-2].equals(".")) {
+					listeMouv.add(new Deplacement(i, j, i, j-2));
+				}
+				
+				//deplacement possible vers le haut
+				if(i-2 >= 0
+						&& tablier[i][j].equals("o")
+						&& tablier[i-1][j].equals("o")
+						&& tablier[i-2][j].equals(".")) {
+					listeMouv.add(new Deplacement(i, j, i-2, j));
+				}
+				
+				//deplacement possible vers le bas
+				if(i+2 < tablier.length 
+						&& tablier[i][j].equals("o")
+						&& tablier[i+1][j].equals("o")
+						&& tablier[i+2][j].equals(".")) {
+					listeMouv.add(new Deplacement(i, j, i+2, j));
+				}		
+			}
+		}
+		return listeMouv;
+	}
+	
+	public void effectuerDeplacement(Deplacement dep) {
+		deplacer(dep, false);
+	}
+	
+	public void annulerDeplacement(Deplacement dep) {
+		deplacer(dep, true);
+	}
+	
+	private void deplacer(Deplacement dep, boolean annuler) {
+		String s1 = ".";
+		String s2 = "o";
+		if(annuler) {
+			s1 = "o";
+			s2 = ".";
+		}	
+		tablier[dep.getLigneA()][dep.getColD()] = s1;
+		tablier[dep.getLigneA()][dep.getColA()] = s2;
+		
+		if(dep.getLigneD() == dep.getLigneA()) {
+			tablier[dep.getLigneD()][Math.min(dep.getColD(), dep.getColA())+1] = s1;
+		}
+		else {
+			tablier[Math.min(dep.getLigneD(), dep.getLigneA())+1][dep.getColA()] = s1;	
+		}
+	}
+	
+	public int calculerNbPiece() {
+		int nb = 0;
+		for(int i=0; i<tablier.length; i++) {
+			for(int j=0; i<tablier[i].length; j++) {
+				if(tablier[i][j].equals("o")) {
+					nb++;
+				}
+			}
+		}
+		return nb;
+	}
+
+	/**
+	 * @return the tablier
+	 */
+	public String[][] getTablier() {
+		return tablier;
+	}
+	
+	
+	
+	
+	
 	
 }

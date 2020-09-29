@@ -6,7 +6,7 @@ debut
 	listeMvmtPossible <-- lisVide
 	pour i de 1 à tablier.longueur -1 faire
 		pour j de 1 à tablier[i] faire
-			si j+2 < tablier[i].longueur = 'O' et tablier[i][j] = 'O' et tablier[i][j+1] = 'O' et tablier[i][j+2] = '.' alors
+			si j+2 < tablier[i].longueur et tablier[i][j] = 'O' et tablier[i][j+1] = 'O' et tablier[i][j+2] = '.' alors
 				adjqlis(listeMvmtPossible, <i, j, i, j+2 >)
 			fsi
 		
@@ -42,21 +42,29 @@ fin
 fonction effectuerMouvement( t tableau boolean [0..nbLigne-1, 0..longueurLigne-1], 
 	mouv: Mouvement, annuler: boolean )
 debut
-	t[mouv.ligneD][mouv.colD] <-- annuler
-	t[mouv.ligneD][mouv.colA] <-- non annuler
+	chaine1 <-- '.'
+	chaine2 <-- 'O'
+	si annuler alors
+		chaine1 <-- 'O'
+		chaine2 <-- '.'
+	fsi
+	
+	t[mouv.ligneD][mouv.colD] <-- chaine1
+	t[mouv.ligneD][mouv.colA] <-- chaine2
 	si mouv.ligneA = mouv.ligneD alors
-		t[mouv.ligneD][(mouv.colD + mouv.colA)/ 2 ] <-- annuler
+		t[mouv.ligneD][(mouv.colD + mouv.colA)/ 2 ] <-- chaine1
 	sinon
-		t[(mouv.ligneD + mouv.ligneA)/ 2 ][mouv.colD] <-- annuler
+		t[(mouv.ligneD + mouv.ligneA)/ 2 ][mouv.colD] <-- chaine1
 	fsi
 fin
 
 
 fonction etapeJeu( solution InOut liste ( Mouvement ) [0..longueurSolution-1], 
-	tablier tableau boolean [0..nbLigne-1, 0..longueurLigne-1]): boolean
+	tablier InOut tableau boolean [0..nbLigne-1, 0..longueurLigne-1],
+	nbPiece: entier ): boolean
 	
 	debut
-		nbPiece <-- calculerNbPiece(tablier)
+		//nbPiece <-- calculerNbPiece(tablier)
 		si nbPiece = 1 alors
 			//Cas triviale
 			bloque <-- faux
@@ -71,7 +79,7 @@ fonction etapeJeu( solution InOut liste ( Mouvement ) [0..longueurSolution-1],
 				si acceptable alors
 					//enregistrement mouvement dans solution
 					adjqliste(solution, val(listeMvmtPossible, i))
-					bloque <-- etapeJeu( solution, tablier)
+					bloque <-- etapeJeu( solution, tablier, nbPiece -1 )
 					si bloque alors
 						//On retourne en arrière en supprimant l'enregistrement dans la solution
 						supqlis(solution)
