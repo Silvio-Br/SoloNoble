@@ -14,7 +14,8 @@ public class SoloNoble {
 	}
 
 	public SoloNoble() throws IOException {
-		g = new Grille("./tablier.txt");
+		g = new Grille();
+		//g = new Grille(args[0]);
 		solution = new ArrayList<Deplacement>();
 	}
 	
