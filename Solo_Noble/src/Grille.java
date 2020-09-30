@@ -55,17 +55,19 @@ public class Grille {
 		int caractere;
 	
 		for (int k = 0; k < lignes; k++) {
-			for (int l = 0; l < colonnes; l++) {
+			for (int l = 0; l < colonnes+1; l++) {
 				caractere = reader.read();
 				String val = "";
 				val += (char) caractere;
-				
-				while (!val.equals(" ") && !val.equals(".") && !val.equals("o")) {
+				/*
+				while (val.equals("\n")) {
 					reader.read();
-				}
+				}*/
 				
-				tablier[k][l] = val;
-				System.out.println("t[" + k + "][" + l  + "] = " + val);
+				if(l != colonnes) {				
+					System.out.println("t[" + k + "][" + l  + "] = " + val);
+					tablier[k][l] = val;					
+				}
 			}
 			caractere = reader.read();
 		}
