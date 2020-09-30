@@ -8,6 +8,7 @@ public class SoloNoble {
 	private Grille g;
 	private List<Deplacement> solution;
 	private int nbAppelRecursif;
+	private Grille grilleDepart;
 	
 	public static void main(String[] args) throws IOException {
 		SoloNoble solo;
@@ -17,9 +18,12 @@ public class SoloNoble {
 			solo = new SoloNoble(null);
 		}
 		System.out.println(solo.g.toString());
+		//solo.grilleDepart = solo.g.clone();	
+		System.out.println(solo.grilleDepart);
 		solo.nbAppelRecursif = 0;
 		solo.resoudreSoloNoble(solo.g.calculerNbPiece());
-		solo.afficherLogSolution();
+		//solo.afficherLogSolution();
+		solo.afficherSolution();
 	}
 
 	/**
@@ -31,8 +35,10 @@ public class SoloNoble {
 	public SoloNoble(String f) throws IOException {
 		if (f != null) {
 			g = new Grille(f);
+			grilleDepart = new Grille(f);
 		} else {
 			g = new Grille();
+			grilleDepart = new Grille();
 		}
 		solution = new ArrayList<Deplacement>();
 	}
@@ -85,6 +91,18 @@ public class SoloNoble {
 			System.out.println(i);
 		}
 		System.out.println("*** Nombre appel recursif: "+nbAppelRecursif+" ***");
+	}
+	
+	public void afficherSolution() {
+		int i=1;
+		System.out.println(grilleDepart);
+		System.out.println("[SOLUTION]");
+		for(Deplacement d:solution) {
+			grilleDepart.effectuerDeplacement(d);
+			System.out.println("Etape i :"+i+"   "+ d);
+			System.out.println("\n"+grilleDepart);
+			i++;
+		}
 	}
 
 }

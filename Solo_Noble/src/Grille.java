@@ -165,8 +165,9 @@ public class Grille {
 			s1 = "o";
 			s2 = ".";
 		}	
-		tablier[dep.getLigneA()][dep.getColD()] = s1;
+		tablier[dep.getLigneD()][dep.getColD()] = s1;
 		tablier[dep.getLigneA()][dep.getColA()] = s2;
+		
 		
 		if(dep.getLigneD() == dep.getLigneA()) {
 			tablier[dep.getLigneD()][Math.min(dep.getColD(), dep.getColA())+1] = s1;
