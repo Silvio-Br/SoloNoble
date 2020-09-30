@@ -79,7 +79,6 @@ public class Grille {
 				
 				/** insere dans tablier si dans les bornes **/
 				if(l != colonnes) {				
-					System.out.println("t[" + k + "][" + l  + "] = " + val);
 					tablier[k][l] = val;					
 				}
 			}
@@ -191,6 +190,16 @@ public class Grille {
 			}
 		}
 		return nb;
+	}
+	
+	/**
+	 * methode clone une grille
+	 * @return grille clonee 
+	 */
+	public Grille clone() {
+		Grille res = new Grille();
+		res.tablier = this.tablier.clone();
+		return res;
 	}
 
 	/**
