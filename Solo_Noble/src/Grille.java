@@ -52,22 +52,26 @@ public class Grille {
 		/** iterateurs **/
 		int i = 0;
 		int j = 0;
-		int caractere;
+		int caractere = 0;
 	
+		
 		for (int k = 0; k < lignes; k++) {
-			for (int l = 0; l < colonnes+1; l++) {
+			for (int l = 0; l < colonnes; l++) {
+				
 				caractere = reader.read();
 				String val = "";
-				val += (char) caractere;
-				/*
-				while (val.equals("\n")) {
-					reader.read();
-				}*/
-				
-				if(l != colonnes) {				
-					System.out.println("t[" + k + "][" + l  + "] = " + val);
-					tablier[k][l] = val;					
+
+				while (caractere == 13 || caractere == 10) {
+					caractere = reader.read();
+					k++;
+					l = 0;
 				}
+
+				val += (char)caractere;
+				System.out.println("v[" + val + "]");
+
+				System.out.println("t[" + k + "][" + l  + "] = " + val);
+				tablier[k][l] = val;					
 			}
 			caractere = reader.read();
 		}
