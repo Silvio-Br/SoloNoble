@@ -52,26 +52,29 @@ public class Grille {
 		/** iterateurs **/
 		int i = 0;
 		int j = 0;
-		int caractere = 0;
+		int caractere;
 	
-		
+		int limiteColonne;
+		if(System.getProperty("os.name").equals("Windows 10")) {
+			limiteColonne = colonnes +1;
+		}
+		else {
+			limiteColonne = colonnes;
+		}
 		for (int k = 0; k < lignes; k++) {
-			for (int l = 0; l < colonnes; l++) {
-				
+			for (int l = 0; l < limiteColonne; l++) {
 				caractere = reader.read();
 				String val = "";
-
-				while (caractere == 13 || caractere == 10) {
-					caractere = reader.read();
-					k++;
-					l = 0;
+				val += (char) caractere;
+				/*
+				while (val.equals("\n")) {
+					reader.read();
+				}*/
+				
+				if(l != colonnes) {				
+					System.out.println("t[" + k + "][" + l  + "] = " + val);
+					tablier[k][l] = val;					
 				}
-
-				val += (char)caractere;
-				System.out.println("v[" + val + "]");
-
-				System.out.println("t[" + k + "][" + l  + "] = " + val);
-				tablier[k][l] = val;					
 			}
 			caractere = reader.read();
 		}

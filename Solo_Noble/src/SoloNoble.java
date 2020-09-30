@@ -2,10 +2,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+//"./Solo_Noble/tablier.txt"
 public class SoloNoble {
 	
 	private Grille g;
 	private List<Deplacement> solution;
+	private int nbAppelRecursif;
 	
 	public static void main(String[] args) throws IOException {
 		SoloNoble solo;
@@ -14,8 +16,9 @@ public class SoloNoble {
 		} else {
 			solo = new SoloNoble(null);
 		}
+		solo.nbAppelRecursif = 0;
 		solo.resoudreSoloNoble(solo.g.calculerNbPiece());
-		solo.afficherSolution();
+		solo.afficherLogSolution();
 	}
 
 	public SoloNoble(String f) throws IOException {
@@ -28,7 +31,7 @@ public class SoloNoble {
 	}
 	
 	public boolean resoudreSoloNoble(int billes) {
-		
+		nbAppelRecursif++;
 		boolean bloque;
 		if(billes == 1) {
 			bloque = false;
@@ -61,11 +64,11 @@ public class SoloNoble {
 		return bloque;
 	}
 	
-	public void afficherSolution() {
+	public void afficherLogSolution() {
 		for(Deplacement i:solution) {
 			System.out.println(i);
 		}
-		System.out.println("*** LONGUEUR SOLUTION : "+solution.size()+" ***");
+		System.out.println("*** Nombre appel recursif: "+nbAppelRecursif+" ***");
 	}
 
 }
