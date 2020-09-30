@@ -16,6 +16,7 @@ public class SoloNoble {
 		} else {
 			solo = new SoloNoble(null);
 		}
+		System.out.println(solo.g.toString());
 		solo.nbAppelRecursif = 0;
 		solo.resoudreSoloNoble(solo.g.calculerNbPiece());
 		solo.afficherLogSolution();

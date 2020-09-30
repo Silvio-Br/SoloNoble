@@ -168,6 +168,25 @@ public class Grille {
 		return tablier;
 	}
 	
+	@Override
+	public String toString() {
+		String res = "";
+		for(int i=0; i<tablier.length; i++) {
+			for(String s:tablier[i]) {
+				res += s;
+			}
+			res += "\n";
+		}
+		
+		
+		return res;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
