@@ -60,6 +60,10 @@ public class Grille {
 				String val = "";
 				val += (char) caractere;
 				
+				while (!val.equals(" ") && !val.equals(".") && !val.equals("o")) {
+					reader.read();
+				}
+				
 				tablier[k][l] = val;
 				System.out.println("t[" + k + "][" + l  + "] = " + val);
 			}
