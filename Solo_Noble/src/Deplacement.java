@@ -24,6 +24,17 @@ public class Deplacement {
 	 */
 	private int colD;
 
+	/**
+	 * constructeur de deplacement
+	 * @param ligneD
+	 * 				ligne de depart de la piece
+	 * @param colD
+	 * 				colonne de depart de la piece
+	 * @param ligneA
+	 * 				ligne d'arrivee de la piece
+	 * @param colA
+	 * 				colonne d'arrivee de la piece
+	 */
 	public Deplacement(int ligneD, int colD, int ligneA, int colA) {
 		super();
 		this.ligneD = ligneD;
@@ -88,6 +99,9 @@ public class Deplacement {
 		this.colD = colD;
 	}
 	
+	/**
+	 * methode toString
+	 */
 	public String toString() {
 		return "Ligne Depart: "+ligneD+" | colonne depart:"+colD+" | ligne arrivé: "+ligneA+" | colonne arrive: "+colA;
 	}

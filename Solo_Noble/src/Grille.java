@@ -31,6 +31,12 @@ public class Grille {
 		convertirFichier(fichier);
 	}
 	
+	/**
+	 * methode convertissant le fichier txt en tablier
+	 * @param fichier
+	 * 					chemin du fichier txt
+	 * @throws IOException
+	 */
 	public void convertirFichier(String fichier) throws IOException {
 		
 		BufferedReader reader = new BufferedReader(new FileReader(fichier));
@@ -49,39 +55,44 @@ public class Grille {
 		reader = new BufferedReader(new FileReader(fichier));
 		tablier = new String[lignes][colonnes];
 		
-		/** iterateurs **/
-		int i = 0;
-		int j = 0;
+		/** variable contenant le code du caractere **/
 		int caractere;
 	
+		/** limite iteration en fonction de l'os **/
 		int limiteColonne;
+		
+		/** si os est windows la boucle for de l ira jusque colonnes+1 sinon limiteColonne = colonnes**/
 		if(System.getProperty("os.name").equals("Windows 10")) {
 			limiteColonne = colonnes +1;
 		}
 		else {
 			limiteColonne = colonnes;
 		}
+		
+		/** parcours caracteres par caracteres **/
 		for (int k = 0; k < lignes; k++) {
 			for (int l = 0; l < limiteColonne; l++) {
+				/** recupere la valeur du caractere **/
 				caractere = reader.read();
 				String val = "";
 				val += (char) caractere;
-				/*
-				while (val.equals("\n")) {
-					reader.read();
-				}*/
 				
+				/** insere dans tablier si dans les bornes **/
 				if(l != colonnes) {				
 					System.out.println("t[" + k + "][" + l  + "] = " + val);
 					tablier[k][l] = val;					
 				}
 			}
+			/** passe le caractere de retour à la ligne **/
 			caractere = reader.read();
 		}
 		reader.close();
 	}
 	
-	
+	/**
+	 * methode calculant les mouvements possibles dans les quatres directions 
+	 * @return
+	 */
 	public ArrayList<Deplacement> calculerMouvementPossibles(){
 		ArrayList<Deplacement> listeMouv = new ArrayList<Deplacement>();
 		
@@ -123,14 +134,31 @@ public class Grille {
 		return listeMouv;
 	}
 	
+	/**
+	 * methode effectuant le deplacement 
+	 * @param dep
+	 * 				deplacement à effectuer 
+	 */
 	public void effectuerDeplacement(Deplacement dep) {
 		deplacer(dep, false);
 	}
 	
+	/**
+	 * methode annulant le deplacement 
+	 * @param dep
+	 * 				deplacement à effectuer
+	 */
 	public void annulerDeplacement(Deplacement dep) {
 		deplacer(dep, true);
 	}
 	
+	/**
+	 * methode deplacant la piece 
+	 * @param dep
+	 * 				deplacement à faire
+	 * @param annuler
+	 * 				true quand annulation de deplacement
+	 */
 	private void deplacer(Deplacement dep, boolean annuler) {
 		String s1 = ".";
 		String s2 = "o";
@@ -149,6 +177,10 @@ public class Grille {
 		}
 	}
 	
+	/**
+	 * calcule le nb de piece dans le tablier
+	 * @return nb nombre de piece
+	 */
 	public int calculerNbPiece() {
 		int nb = 0;
 		for(int i=0; i<tablier.length; i++) {
@@ -162,7 +194,8 @@ public class Grille {
 	}
 
 	/**
-	 * @return the tablier
+	 * getteur de tablier
+	 * @return le tablier
 	 */
 	public String[][] getTablier() {
 		return tablier;

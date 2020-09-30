@@ -22,6 +22,12 @@ public class SoloNoble {
 		solo.afficherLogSolution();
 	}
 
+	/**
+	 * constructeur de SoloNoble
+	 * @param f
+	 * 			chemin du fichier si null tablier par defaut utilise 
+	 * @throws IOException
+	 */
 	public SoloNoble(String f) throws IOException {
 		if (f != null) {
 			g = new Grille(f);
@@ -31,6 +37,12 @@ public class SoloNoble {
 		solution = new ArrayList<Deplacement>();
 	}
 	
+	/**
+	 * methode resoud le jeu
+	 * @param billes
+	 * 				nb de pieces dans la grille
+	 * @return
+	 */
 	public boolean resoudreSoloNoble(int billes) {
 		nbAppelRecursif++;
 		boolean bloque;
@@ -65,6 +77,9 @@ public class SoloNoble {
 		return bloque;
 	}
 	
+	/**
+	 * methode affichant la solution dans la console
+	 */
 	public void afficherLogSolution() {
 		for(Deplacement i:solution) {
 			System.out.println(i);
