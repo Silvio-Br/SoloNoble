@@ -62,13 +62,14 @@ public class Grille {
 		int limiteColonne;
 		
 		/** si os est windows la boucle for de l ira jusque colonnes+1 sinon limiteColonne = colonnes**/
-		if(System.getProperty("os.name").equals("Windows 10")) {
+		//if(System.getProperty("os.name").equals("Windows 10")) {
+		if(System.getProperty("line.separator").equals("\r\n")) {
 			limiteColonne = colonnes +1;
 		}
 		else {
 			limiteColonne = colonnes;
 		}
-		
+
 		/** parcours caracteres par caracteres **/
 		for (int k = 0; k < lignes; k++) {
 			for (int l = 0; l < limiteColonne; l++) {
