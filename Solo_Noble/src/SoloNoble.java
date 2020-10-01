@@ -70,6 +70,9 @@ public class SoloNoble {
 						g.annulerDeplacement(listeDepPossible.get(i));
 					}
 				}
+				else {
+					g.annulerDeplacement(listeDepPossible.get(i));
+				}
 				i++;
 			}
 		}
@@ -95,6 +98,10 @@ public class SoloNoble {
 			System.out.println("Etape i :"+i+"   "+ d);
 			System.out.println("\n"+grilleDepart);
 			i++;
+		}
+		System.out.println("*** Nombre appel recursif: "+nbAppelRecursif+" ***");
+		if(i==1) {
+			System.out.println("Aucune solution trouvé");
 		}
 	}
 
