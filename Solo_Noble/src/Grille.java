@@ -62,7 +62,6 @@ public class Grille {
 		int limiteColonne;
 		
 		/** si os est windows la boucle for de l ira jusque colonnes+1 sinon limiteColonne = colonnes**/
-		//if(System.getProperty("os.name").equals("Windows 10")) {
 		if(System.getProperty("line.separator").equals("\r\n")) {
 			limiteColonne = colonnes +1;
 		}
@@ -162,13 +161,14 @@ public class Grille {
 	private void deplacer(Deplacement dep, boolean annuler) {
 		String s1 = ".";
 		String s2 = "o";
+		
 		if(annuler) {
 			s1 = "o";
 			s2 = ".";
 		}	
+		
 		tablier[dep.getLigneD()][dep.getColD()] = s1;
 		tablier[dep.getLigneA()][dep.getColA()] = s2;
-		
 		
 		if(dep.getLigneD() == dep.getLigneA()) {
 			tablier[dep.getLigneD()][Math.min(dep.getColD(), dep.getColA())+1] = s1;
@@ -221,8 +221,6 @@ public class Grille {
 			}
 			res += "\n";
 		}
-		
-		
 		return res;
 	}
 	

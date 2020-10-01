@@ -17,12 +17,7 @@ public class SoloNoble {
 		} else {
 			solo = new SoloNoble(null);
 		}
-		System.out.println(solo.g.toString());
-		//solo.grilleDepart = solo.g.clone();	
-		System.out.println(solo.grilleDepart);
-		solo.nbAppelRecursif = 0;
 		solo.resoudreSoloNoble(solo.g.calculerNbPiece());
-		//solo.afficherLogSolution();
 		solo.afficherSolution();
 	}
 
@@ -40,6 +35,7 @@ public class SoloNoble {
 			g = new Grille();
 			grilleDepart = new Grille();
 		}
+		nbAppelRecursif = 0;
 		solution = new ArrayList<Deplacement>();
 	}
 	
@@ -71,11 +67,8 @@ public class SoloNoble {
 					if(bloque) {
 						//on annule l'enregistrement
 						solution.remove(solution.size()-1);
+						g.annulerDeplacement(listeDepPossible.get(i));
 					}
-				}
-				else {
-					//annulation du deplacement si resultat non acceptable
-					g.annulerDeplacement(listeDepPossible.get(i));
 				}
 				i++;
 			}
@@ -95,7 +88,7 @@ public class SoloNoble {
 	
 	public void afficherSolution() {
 		int i=1;
-		System.out.println(grilleDepart);
+		System.out.println("Grille de depart : " + "\n" + grilleDepart);
 		System.out.println("[SOLUTION]");
 		for(Deplacement d:solution) {
 			grilleDepart.effectuerDeplacement(d);
