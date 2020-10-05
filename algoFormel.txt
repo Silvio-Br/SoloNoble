@@ -1,6 +1,6 @@
 
-fonction calculerMouvementsPossibles( tablier tableau chaine [0..nbLigne-1, 0..longueurLigne-1]
-							): liste ( Mouvement ) 
+fonction calculerDeplacementsPossibles( tablier tableau chaine [0..nbLigne-1, 0..longueurLigne-1]
+							): liste ( Deplacement ) 
 							//<ligneD: entier, colD: entier, ligneA: entier, colA: entier >
 debut
 	listeMvmtPossible <-- lisVide
@@ -39,8 +39,8 @@ debut
 	retourne nbPiece
 fin
 
-fonction effectuerMouvement( t tableau boolean [0..nbLigne-1, 0..longueurLigne-1], 
-	mouv: Mouvement, annuler: boolean )
+fonction effectuerDeplacement( t tableau boolean [0..nbLigne-1, 0..longueurLigne-1], 
+	mouv: Deplacement , annuler: boolean )
 debut
 	chaine1 <-- '.'
 	chaine2 <-- 'O'
@@ -59,7 +59,7 @@ debut
 fin
 
 
-fonction etapeJeu( solution InOut liste ( Mouvement ) [0..longueurSolution-1], 
+fonction etapeJeu( solution InOut liste ( Deplacement ) [0..longueurSolution-1], 
 	tablier InOut tableau boolean [0..nbLigne-1, 0..longueurLigne-1],
 	nbPiece: entier ): boolean
 	
@@ -70,23 +70,24 @@ fonction etapeJeu( solution InOut liste ( Mouvement ) [0..longueurSolution-1],
 			bloque <-- faux
 		sinon
 			bloque <-- vrai			
-			listeMvmtPossible <-- calculerMouvementsPossibles( tablier )
+			listeMvmtPossible <-- calculerDeplacementsPossibles( tablier )
 			i <-- 0
 			tantque i < longueur(listeMvmtPossible) et bloque faire
-				effectuerMouvement( tablier, val(listeMvmtPossible,i), faux )
+				effectuerDeplacement( tablier, val(listeMvmtPossible,i), faux )
 				
-				acceptable <-- non (longueur(calculerMouvementsPossibles(tablier)) = 0 et calculerNbPiece(tablier) != 1
+				acceptable <-- non (longueur(calculerDeplacementsPossibles(tablier)) = 0 et calculerNbPiece(tablier) != 1
 				si acceptable alors
-					//enregistrement mouvement dans solution
+					//enregistrement deplacement dans solution
 					adjqliste(solution, val(listeMvmtPossible, i))
 					bloque <-- etapeJeu( solution, tablier, nbPiece -1 )
 					si bloque alors
 						//On retourne en arrière en supprimant l'enregistrement dans la solution
 						supqlis(solution)
+						effectuerDeplacement( tablier, val(listeMvmtPossible,i), vrai )
 					fsi
 				sinon
-					//Annulation du mouvement
-					effectuerMouvement( tablier, val(listeMvmtPossible,i), vrai )
+					//Annulation du deplacement
+					effectuerDeplacement( tablier, val(listeMvmtPossible,i), vrai )
 				fsi
 			fpour
 		fsi
