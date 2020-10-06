@@ -23,8 +23,18 @@ debut
 			fsi
 		fpour
 	fpour
-	retourne tabMvmtPossible
+	retourne listeMvmtPossible
 fin
+
+Lexique 
+	tablier tableau : chaine [0..nbLigne-1, 0..longueurLigne-1], //tableau à deux dimensions représentant le tablier de jeu
+	listeMvmtPossible ( Deplacement ), //liste de déplacement représentant l'ensemble des déplacement possibles sur le tablier en paramètre
+	i : entier , // indice permettant le parcoure de toute les lignes
+	j : entier , //indice permettant le parcours de toute les cases d'une ligne i
+	
+
+
+
 
 fonction calculerNbPiece( tablier tableau chaine [0..nbLigne-1, 0..longueurLigne-1]): entier
 debut
@@ -38,6 +48,16 @@ debut
 	fpour
 	retourne nbPiece
 fin
+
+Lexique 
+	tablier tableau : chaine [0..nbLigne-1, 0..longueurLigne-1], //tableau à deux dimensions représentant le tablier de jeu
+	i : entier , // indice permettant le parcoure de toute les lignes
+	j : entier , //indice permettant le parcours de toute les cases d'une ligne i
+	nbPiece : entier , //nombre de pièce présentent sur le tablier
+
+
+	
+
 
 fonction effectuerDeplacement( t tableau boolean [0..nbLigne-1, 0..longueurLigne-1], 
 	mouv: Deplacement , annuler: boolean )
@@ -60,8 +80,8 @@ fin
 
 
 fonction etapeJeu( solution InOut liste ( Deplacement ) [0..longueurSolution-1], 
-	tablier InOut tableau boolean [0..nbLigne-1, 0..longueurLigne-1],
-	nbPiece: entier ): boolean
+	tablier InOut tableau booleen [0..nbLigne-1, 0..longueurLigne-1],
+	nbPiece: entier ): booleen
 	
 	debut
 		//nbPiece <-- calculerNbPiece(tablier)
@@ -94,6 +114,25 @@ fonction etapeJeu( solution InOut liste ( Deplacement ) [0..longueurSolution-1],
 		retourne bloque
 	fin
 
+Lexique	
+	tablier tableau : chaine [0..nbLigne-1, 0..longueurLigne-1], //tableau à deux dimensions en entrée-sortie représentant le tablier de jeu
+	nbPiece : entier , //nombre de pièce présentent sur le tablier
+	bloque : booleen , //permet de savoir si l'exexution actuelle est fructueuse ou non
+	solution : liste ( Deplacement ), //liste des déplacements nécessaire pour atteindre l'état actuelle, si le programme et fructueux c'est la liste de deplacement necessaire pour finir le jeu
+	listeMvmtPossible ( Deplacement ), //liste de déplacement représentant l'ensemble des déplacement possibles sur le tablier en paramètre
+	acceptable : booleen , //apres un deplacement "test", indique si on le programme est bloqué (pas de d'autre mouvement possible et pas gagné)
+	i : entier , //itérateur de la liste listeMvmtPossible
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 
