@@ -11,14 +11,26 @@ public class SoloNoble {
 	private Grille grilleDepart;
 	
 	public static void main(String[] args) throws IOException {
+		/** creation chronometre jusqu'a la fin du programme **/
+		long chrono = java.lang.System.currentTimeMillis();
+		
 		SoloNoble solo;
+		/** si un argument est present considere comme fichier txt contenant une grille **/
 		if (args.length > 0) {
 			solo = new SoloNoble(args[0]);
 		} else {
+			/** sinon on creer une grille par defaut **/
 			solo = new SoloNoble(null);
 		}
+		
+		/** lancement de la resolution du solo noble **/
 		solo.resoudreSoloNoble(solo.g.calculerNbPiece());
 		solo.afficherSolution();
+		
+		/** fin du chronometre et affichage **/
+		long chrono2 = java.lang.System.currentTimeMillis() ;
+		long temps = chrono2 - chrono ;
+		System.out.println("*** Temps ecoule = " + temps + " ms ***") ;
 	}
 
 	/**
@@ -30,9 +42,11 @@ public class SoloNoble {
 	public SoloNoble(String f) throws IOException {
 		if (f != null) {
 			g = new Grille(f);
+			/** copie de la grille pour l'affichage de la solution **/
 			grilleDepart = new Grille(f);
 		} else {
 			g = new Grille();
+			/** copie de la grille pour l'affichage de la solution **/
 			grilleDepart = new Grille();
 		}
 		nbAppelRecursif = 0;
@@ -99,7 +113,7 @@ public class SoloNoble {
 			System.out.println("\n"+grilleDepart);
 			i++;
 		}
-		System.out.println("*** Nombre appel recursif: "+nbAppelRecursif+" ***");
+		System.out.println("*** Nombre d'appels recursifs : "+nbAppelRecursif+" ***");
 		if(i==1) {
 			System.out.println("Aucune solution trouvé");
 		}
